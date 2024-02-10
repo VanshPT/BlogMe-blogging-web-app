@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Contact
 from django.contrib import messages
-# Create your views here.
+from django.contrib.auth.models import User
 from blog.models import Post
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 # Create your views here.
 def home(request):
@@ -43,3 +44,55 @@ def search(request):
         messages.error(request,"Please Fill the form correctly!")
     context={'allPosts':allPosts, 'query':query}
     return render(request, 'home/search.html', context)
+
+def signup(request):
+    if request.method == "POST":
+        username=request.POST.get('username')
+        firstname=request.POST.get('firstName')
+        lastname=request.POST.get('lastName')
+        email=request.POST.get('email')
+        password=request.POST.get('password')
+        confpassword=request.POST.get('confirmPassword')
+        if len(password)<8:
+            messages.error(request,'Password Length Cannot be Less than 8!')
+            return redirect('/')
+        elif password!=confpassword:
+            messages.error(request,'Password and Confirm Password Fields do not Match!')
+            return redirect('/')
+        elif len(password)<8 and password!=confpassword:
+            messages.error(request,'Password Length Cannot be Less than 8!')
+            messages.error(request,'Password and Confirm Password Fields do not Match!')
+            return redirect('/')
+        elif not username.isalnum():
+            messages.error(request, "Username should be in Alphabets or Numbers only!")
+            return redirect('/')
+        else:
+            myuser=User.objects.create_user(username, email, password)
+            myuser.first_name=firstname
+            myuser.last_name=lastname
+            myuser.save()
+            messages.success(request,'Your Blogme Account has been successfully created')
+            return redirect('/')
+    else:
+        return HttpResponse("Error! Illegal Request")
+
+def login(request):
+    if request.method == "POST":
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        user=authenticate(username=username, password=password)
+        if user is not None:
+            auth_login(request,user)
+            messages.success(request, "Successfully Logged In!")
+            return redirect('/')
+        else:
+            messages.error(request, "Invalid Credentials! Please Try Again!")
+            return redirect('/')
+    else:
+        return HttpResponse("Error! Illegal Request")
+
+
+def logout(request):
+    auth_logout(request)  # Use renamed logout function
+    messages.success(request, "Successfully Logged Out!")
+    return redirect("/")

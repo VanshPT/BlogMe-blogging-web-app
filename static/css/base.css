@@ -27,3 +27,19 @@
 .navbar-nav .nav-item.active .nav-link {
   color: #ffd93f;
 }
+.custom-margg{
+  margin:0 0.5rem;
+}
+#logguser{
+  font-weight: bolder;
+  color: #ffc107;
+  font-size: 1.4rem;
+  margin: 0 0.5rem;
+}
+
+#finlog{
+  text-decoration: none;
+  color: #470000;
+  font-size: 1.5rem;
+  
+}
