@@ -1,0 +1,25 @@
+
+    /* Custom Navbar Color */
+    .navbar-custom {
+      background-color: #470000!important; /* Change this to your desired background color */
+    }
+
+    /* Custom Navbar Link Color */
+    .navbar-custom .nav-link {
+      color: #ffffff!important; /* Change this to your desired link color */
+    }
+
+    /* Custom Navbar Link Hover Color */
+    .navbar-custom .nav-link:hover {
+      color: #ffc107!important; /* Change this to your desired link hover color */
+    }
+
+    /* Custom Navbar Brand Color */
+    .navbar-custom .navbar-brand {
+      color: #ffffff; /* Change this to your desired brand color */
+    }
+
+    /* Custom Navbar Brand Hover Color */
+    .navbar-custom .navbar-brand:hover {
+      color: #f8f9fa; /* Change this to your desired brand hover color */
+    }
