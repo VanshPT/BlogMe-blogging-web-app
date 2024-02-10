@@ -2,13 +2,15 @@ from django.shortcuts import render
 from .models import Contact
 from django.contrib import messages
 # Create your views here.
-
+from blog.models import Post
 from django.shortcuts import render
 from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    return render(request, 'home/home.html')
+    allPosts = Post.objects.all().order_by('-timestamp')[:8]
+    return render(request, 'home/home.html', {'allPosts': allPosts})
+
 
 def contact(request):
 
@@ -28,3 +30,16 @@ def contact(request):
 
 def about(request):
     return render(request, 'home/about.html')
+
+def search(request):
+    query=request.GET.get('search')
+    if len(query)>100:
+        allPosts=[]
+    else:
+        allPostsTitle=Post.objects.filter(title__icontains=query)
+        allPostsContent=Post.objects.filter(content__icontains=query)
+        allPosts=allPostsTitle.union(allPostsContent)
+    if allPosts.count() == 0:
+        messages.error(request,"Please Fill the form correctly!")
+    context={'allPosts':allPosts, 'query':query}
+    return render(request, 'home/search.html', context)

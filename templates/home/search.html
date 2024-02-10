@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+{% block title %}
+BlogMe | Search
+{% endblock %}
+{% block homeactive %}active{% endblock %}
+{% block css %}{% endblock %}
+.custom-carousel-height{
+  max-height:500px!important;
+}
+.custom-spacing{
+  margin:2rem;
+}
+{% block body %}
+<div class="container my-5">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis">Search Results for </h1>
+        <p class="lead"></p>
+      </div>
+
+
+      <div class="container mt-5">
+        <div class="row mb-2 custom-spacing">
+{% if allPosts|length < 1 %}
+<h5>No Search Results for " {{ query }} "</h5>
+
+{% endif %}
+{% for post in allPosts %}
+          <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary-emphasis">{{ post.author }}</strong>
+                <h3 class="mb-0">{{ post.title }}</h3>
+                <div class="mb-1 text-body-secondary">{{ post.timestamp }}</div>
+                <p class="card-text mb-auto">{{ post.content | truncatechars:150 }}</p>
+                <a href="/blog/{{ post.slug }}/" class="icon-link gap-1 icon-link-hover stretched-link">
+                  Continue reading
+                  <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+                </a>
+              </div>
+              <div class="col-auto d-none d-lg-block">
+                <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+              </div>
+            </div>
+          </div>
+
+{% endfor %}
+        </div>
+        </div>
+
+
+
+
+
+
+    </div>
+  </div>
+
+
+
+{% endblock %}
+
+{% block js %}{% endblock %}
