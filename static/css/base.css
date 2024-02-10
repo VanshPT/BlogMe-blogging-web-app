@@ -23,3 +23,7 @@
     .navbar-custom .navbar-brand:hover {
       color: #f8f9fa; /* Change this to your desired brand hover color */
     }
+/* Example custom CSS file (styles.css) */
+.navbar-nav .nav-item.active .nav-link {
+  color: #ffd93f;
+}

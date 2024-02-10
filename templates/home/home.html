@@ -2,9 +2,113 @@
 {% block title %}
 BlogMe | Home
 {% endblock %}
-
+{% block homeactive %}active{% endblock %}
 {% block css %}{% endblock %}
+.custom-carousel-height{
+  max-height:500px!important;
+}
+.custom-spacing{
+  margin:2rem;
+}
+{% block body %}
+<div class="container my-5">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis">Border hero with cropped image and shadows</h1>
+        <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Primary</button>
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+        </div>
+      </div>
+      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+          <img class="rounded-lg-3" src="/media/home/fronthome.jpg" alt="" width="720">
+      </div>
+    </div>
+  </div>
 
-{% block body %}{% endblock %}
+<div class="container custom-carousel-height">
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/media/home/image1.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5 id="head1">Heading One</h5>
+          <p id="desc1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus porro suscipit dolorem placeat quaerat nesciunt tenetur velit ut sint perferendis, repellat quasi reiciendis aspernatur in enim labore hic numquam accusantium.</p>
+          <button type="button" class="btn btn-outline-warning">Visit Blog</button>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/media/home/image2.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5 id="head2">Heading Two</h5>
+          <p id="desc2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae eos rerum quas sed assumenda voluptatum. Quam, voluptas, molestiae corporis a at modi labore provident assumenda alias numquam earum deserunt quasi!</p>
+          <button type="button" class="btn btn-outline-warning">Visit Blog</button>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/media/home/image3.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5 id="head3">Heading Three</h5>
+          <p id="desc3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate quisquam architecto ut, quod tempore illum beatae blanditiis amet inventore debitis tempora sapiente maiores a ab, possimus est nostrum magni sint.</p>
+          <button type="button" class="btn btn-outline-warning">Visit Blog</button>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<div class="container mt-5">
+<div class="row mb-2 custom-spacing">
+  <div class="col-md-6">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      <div class="col p-4 d-flex flex-column position-static">
+        <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
+        <h3 class="mb-0">Featured post</h3>
+        <div class="mb-1 text-body-secondary">Nov 12</div>
+        <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+          Continue reading
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+      <div class="col-auto d-none d-lg-block">
+        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      <div class="col p-4 d-flex flex-column position-static">
+        <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
+        <h3 class="mb-0">Post title</h3>
+        <div class="mb-1 text-body-secondary">Nov 11</div>
+        <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+          Continue reading
+          <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+        </a>
+      </div>
+      <div class="col-auto d-none d-lg-block">
+        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
 
 {% block js %}{% endblock %}

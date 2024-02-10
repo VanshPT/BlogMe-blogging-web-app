@@ -1,10 +1,26 @@
 {% extends 'blog/base.html' %}
+
 {% block title %}
-BlogMe | Blog|Post
+BlogMe | Blog | {{ post.slug }}
 {% endblock %}
 
-{% block css %}{% endblock %}
+{% block css %}
+    <!-- Additional CSS styles -->
+{% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="card-text"><small class="text-muted">{{ post.timestamp }}</small></p>
+            <p class="card-text"><em>By: {{ post.author }}</em></p>
+            <p class="card-text">{{ post.content }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
-{% block js %}{% endblock %}
+{% block js %}
+    <!-- Additional JS scripts -->
+{% endblock %}

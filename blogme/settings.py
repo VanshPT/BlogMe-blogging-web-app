@@ -134,3 +134,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_TAGS = {
     messages.ERROR:'danger'
 }
+
+MEDIA_URL = '/media/'
+
+# Define the filesystem path where media files will be stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
