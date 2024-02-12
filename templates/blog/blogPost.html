@@ -1,26 +1,160 @@
 {% extends 'home/base.html' %}
 
 {% block title %}
-BlogMe | Blog | {{ post.slug }}
+    BlogMe | Blog | {{ post.slug }}
 {% endblock %}
 
 {% block css %}
     <!-- Additional CSS styles -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .defuserimg {
+            width: 50px;
+        }
+
+        .timeid {
+            font-size: 0.7rem;
+            background-color: rgb(183, 183, 183);
+            padding: 1px;
+            border-radius: 5px;
+        }
+
+        .custrep {
+            width: 70px;
+            margin: 5px 0;
+        }
+
+        .custom-comment-box {
+            border: 2px solid rgb(183, 183, 183);
+            padding: 1rem;
+        }
+
+        .reply {
+            margin-left: 3rem;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-body">
-            <h2 class="card-title">{{ post.title }}</h2>
-            <p class="card-text"><small class="text-muted">{{ post.timestamp }}</small></p>
-            <p class="card-text"><em>By: {{ post.author }}</em></p>
-            <p class="card-text">{{ post.content }}</p>
+    {% load humanize %}
+    {% load extras %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{ post.title }}</h2>
+                <p class="card-text"><small class="text-muted">{{ post.timestamp }}</small></p>
+                <p class="card-text"><em>By: {{ post.author }}</em></p>
+                <p class="card-text">{{ post.content }}</p>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="container">
+        <h2>Comments ({{ totalcomments|length }})</h2>
+
+        <div class="my-2">
+            {% if user.is_authenticated %}
+                <form action="/blog/postComment/" method="post" class="my-3">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="comment" id="comment"
+                               placeholder="Enter your comment here..." required>
+                        <input type="hidden" name="postId" value="{{ post.pid }}">
+                        <button class="btn btn-warning" type="submit">Submit</button>
+                    </div>
+                </form>
+            {% else %}
+                <h4>You are not logged in. Login to post comments</h4>
+            {% endif %}
+        </div>
+
+        {% for comment in comments %}
+            <div class="row my-3 custom-comment-box">
+                <div class="col-md-1">
+                    <img class="defuserimg" src="/media/blog/defuser.png" alt="">
+                </div>
+                <div class="col-md-11">
+                    <b>{{ comment.user.username }}:</b>
+                    <span class="timeid">{{ comment.timestamp|naturaltime }}</span>
+                    <div>
+                        {{ comment.comment }}
+                    </div>
+                </div>
+
+                <!-- Reply form -->
+                <div class="collapse" id="replyForm{{ comment.cid }}">
+                    <form action="/blog/postComment/" method="post" class="my-3">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control reply-input" name="comment"
+                                   placeholder="Enter your reply here..." required>
+                            <input type="hidden" name="parentId" value="{{ comment.cid }}">
+                            <input type="hidden" name="postId" value="{{ post.pid }}">
+                            <button class="btn btn-warning" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Button to toggle reply form -->
+                <button class="btn btn-warning custrep" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#replyForm{{ comment.cid }}" aria-expanded="false"
+                        aria-controls="replyForm{{ comment.cid }}"
+                        onclick="populateUsername('{{ comment.user.username }}')">
+                    Reply
+                </button>
+
+                <!-- Replies -->
+                <div class="reply">
+                    {% for reply in replyDict|get_val:comment.cid %}
+                        <div class="row my-3">
+                            <div class="col-md-1">
+                                <img class="defuserimg" src="/media/blog/defuser.png" alt="">
+                            </div>
+                            <div class="col-md-11">
+                                <b>{{ reply.user.username }}:</b>
+                                <span class="timeid">{{ reply.timestamp|naturaltime }}</span>
+                                <div>
+                                    {{ reply.comment }}
+                                </div>
+                            </div>
+
+                            <!-- Reply form -->
+                            <div class="collapse" id="replyForm{{ reply.cid }}">
+                                <form action="/blog/postComment/" method="post" class="my-3">
+                                    {% csrf_token %}
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control reply-input" name="comment"
+                                               placeholder="Enter your reply here..." required>
+                                        <input type="hidden" name="parentId" value="{{ reply.parent_id }}">
+                                        <input type="hidden" name="postId" value="{{ post.pid }}">
+                                        <button class="btn btn-warning" type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Button to toggle reply form -->
+                            <button class="btn btn-warning custrep" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#replyForm{{ reply.cid }}" aria-expanded="false"
+                                    aria-controls="replyForm{{ reply.cid }}"
+                                    onclick="populateUsername('{{ reply.user.username }}')">
+                                Reply
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block js %}
     <!-- Additional JS scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function populateUsername(username) {
+            $(".reply-input").val("@" + username + " ");
+        }
+    </script>
 {% endblock %}
