@@ -1,45 +1,83 @@
-
-    /* Custom Navbar Color */
-    .navbar-custom {
-      background-color: #470000!important; /* Change this to your desired background color */
-    }
-
-    /* Custom Navbar Link Color */
-    .navbar-custom .nav-link {
-      color: #ffffff!important; /* Change this to your desired link color */
-    }
-
-    /* Custom Navbar Link Hover Color */
-    .navbar-custom .nav-link:hover {
-      color: #ffc107!important; /* Change this to your desired link hover color */
-    }
-
-    /* Custom Navbar Brand Color */
-    .navbar-custom .navbar-brand {
-      color: #ffffff; /* Change this to your desired brand color */
-    }
-
-    /* Custom Navbar Brand Hover Color */
-    .navbar-custom .navbar-brand:hover {
-      color: #f8f9fa; /* Change this to your desired brand hover color */
-    }
-/* Example custom CSS file (styles.css) */
-.navbar-nav .nav-item.active .nav-link {
-  color: #ffd93f;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: rgb(238,174,202);
+background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
-.custom-margg{
-  margin:0 0.5rem;
+
+.navbar-custom {
+  background-color: #343a40 !important;
 }
-#logguser{
-  font-weight: bolder;
-  color: #ffc107;
-  font-size: 1.4rem;
+
+.navbar-brand {
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.nav-link {
+  color: #fff !important;
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  color: #ffc107 !important;
+}
+
+.btn-outline-warning, .btn-outline-success {
+  color: #ffc107 !important;
+  border-color: #ffc107 !important;
+}
+
+.btn-outline-warning:hover, .btn-outline-success:hover {
+  background-color: #ffc107 !important;
+  color: #343a40 !important;
+}
+
+#search {
+  font-family: 'Poppins', sans-serif !important;
+  border-color: #ffc107 !important;
+  color: #ffc107 !important;
+}
+
+#logguser {
+  font-family: 'Poppins', sans-serif !important;
+  color: #ffc107 !important;
+  font-size: 18px;
   margin: 0 0.5rem;
 }
 
-#finlog{
+/* Custom Modal Style */
+.modal-content {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-title {
+  color: #ffc107;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.btn-close {
+  color: #fff;
+}
+
+.btn-close:hover {
+  color: #ffc107;
+}
+
+.modal-footer a {
+  color: #ffc107;
+}
+
+.modal-footer a:hover {
   text-decoration: none;
-  color: #470000;
-  font-size: 1.5rem;
-  
+  color: #343a40;
+  background-color: #ffc107;
 }

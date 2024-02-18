@@ -44,7 +44,7 @@
                 <h2 class="card-title">{{ post.title }}</h2>
                 <p class="card-text"><small class="text-muted">{{ post.timestamp }}</small></p>
                 <p class="card-text"><em>By: {{ post.author }}</em></p>
-                <p class="card-text">{{ post.content }}</p>
+                <p class="card-text">{{ post.content|safe }}</p>
             </div>
         </div>
     </div>
@@ -81,6 +81,8 @@
                     </div>
                 </div>
 
+                {% if user.is_authenticated %}
+
                 <!-- Reply form -->
                 <div class="collapse" id="replyForm{{ comment.cid }}">
                     <form action="/blog/postComment/" method="post" class="my-3">
@@ -104,6 +106,8 @@
                 </button>
 
                 <!-- Replies -->
+
+                
                 <div class="reply">
                     {% for reply in replyDict|get_val:comment.cid %}
                         <div class="row my-3">
@@ -142,6 +146,7 @@
                         </div>
                     {% endfor %}
                 </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
