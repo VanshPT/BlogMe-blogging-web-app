@@ -64,6 +64,18 @@ active
     .cust-col {
         background-color: #343a40 !important; /* Change navbar background color */
     }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh; /* Adjust the height as needed */
+    }
+
+    #editor-container {
+        width: 80%; /* Adjust the width of the editor */
+        height: 400px; /* Adjust the height of the editor */
+    }
+    
     
 </style>
 {% endblock %}
@@ -103,6 +115,15 @@ active
         </div>
     </div>
 </nav>
+
+
+<div class="container">
+    <form method="post" action="/create/">
+        {% csrf_token %}
+        <textarea id="editor-container" name="blog_content"></textarea>
+        <button type="submit" class="btn btn-secondary">Post</button>
+    </form>
+</div>
 
 
 {% endblock %}
