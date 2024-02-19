@@ -38,7 +38,8 @@ def search(request):
     else:
         allPostsTitle=Post.objects.filter(title__icontains=query)
         allPostsContent=Post.objects.filter(content__icontains=query)
-        allPosts=allPostsTitle.union(allPostsContent)
+        allPostsAuthor=Post.objects.filter(author__icontains=query)
+        allPosts=allPostsTitle.union(allPostsContent,allPostsAuthor)
     if allPosts.count() == 0:
         messages.error(request,"Please Fill the form correctly!")
     context={'allPosts':allPosts, 'query':query}
