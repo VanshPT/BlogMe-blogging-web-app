@@ -42,6 +42,7 @@ To get started with BlogMe, follow these simple steps:
     ```
 
 4. **Install Dependencies**:
+- remove any packages throwing error while running below command from requirements.txt
     ```
     pip install -r requirements.txt
     ```
