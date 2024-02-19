@@ -35,6 +35,7 @@ def search(request):
     query=request.GET.get('search')
     if len(query)>100:
         allPosts=[]
+        
     else:
         allPostsTitle=Post.objects.filter(title__icontains=query)
         allPostsContent=Post.objects.filter(content__icontains=query)
