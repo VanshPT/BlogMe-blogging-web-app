@@ -20,7 +20,6 @@ def content_creator_required(view_func):
             return render(request, 'forbidden.html')
     return wrapper
 
-@login_required
 def homeCreater(request):
     is_content_creator = request.user.groups.filter(name='Content-Creators').exists()
     return render(request, 'index.html', {'is_content_creator': is_content_creator})

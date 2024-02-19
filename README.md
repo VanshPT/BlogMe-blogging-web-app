@@ -63,7 +63,9 @@ To get started with BlogMe, follow these simple steps:
 
 ## Contributing
 
-If you encounter any issues or have suggestions for improvements, feel free to open an issue or submit a pull request on GitHub. Your contributions are highly appreciated!
+If you encounter any issues or have suggestions for improvements, feel free to open an issue or submit a pull request on GitHub. Your contributions are highly appreciated! However below are the points where you can try Improving.
+- Seperate Page only accessable to Content-Creators from where they can see their Posted Blogs and make Changes to their Blogs.
+- Improve the localhost storing Feature of Content inside Tiny MCE editor so that a Creater doesnt lose his progress upon reloading or closing their PC before they Click Post Button.
 
 ## Support
 
