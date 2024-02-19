@@ -44,11 +44,14 @@
                 <h2 class="card-title">{{ post.title }}</h2>
                 <p class="card-text"><small class="text-muted">{{ post.timestamp }}</small></p>
                 <p class="card-text"><em>By: {{ post.author }}</em></p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Post Image" class="img-fluid">
+                {% endif %}
                 <p class="card-text">{{ post.content|safe }}</p>
             </div>
         </div>
     </div>
-
+    
     <div class="container">
         <h2>Comments ({{ totalcomments|length }})</h2>
 

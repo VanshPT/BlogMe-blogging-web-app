@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
     path('blog/',include('blog.urls')),
-    path('create/', include('contentcreater.urls'))
+    path('create/', include('contentcreater.urls')),
 ]
 
 if settings.DEBUG:

@@ -8,6 +8,11 @@ BlogMe | Blog|Home
     .mt-7{
         margin-top: 5rem;
     }
+    .thumbnail-img {
+        width: 200px; /* Adjust width as needed */
+        height: 250px; /* Adjust height as needed */
+        object-fit: cover; /* Maintain aspect ratio and crop as needed */
+    }
 </style>
 {% endblock %}
 
@@ -15,12 +20,17 @@ BlogMe | Blog|Home
 
 <div class="mt-7">
 <main class="container">
-    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary d-flex justify-content-between align-items-center">
       <div class="col-lg-6 px-0">
         <strong class="d-inline-block mb-2 text-primary-emphasis">{{ latest_post.author }}</strong>
         <h1 class="display-4 fst-italic">{{ latest_post.title|safe }}</h1>
         <p class="lead my-3">{{ latest_post.content|safe | truncatechars:150 }}</p>
         <p class="lead mb-0"><a href="/blog/{{ latest_post.slug }}" class="text-body-emphasis fw-bold">Continue reading...</a></p>
+      </div>
+      <div class="col-lg-6 px-0">
+        {% if latest_post.image %}
+        <img src="{{ latest_post.image.url }}" alt="Latest Post Image" class="img-fluid">
+        {% endif %}
       </div>
     </div>
   
@@ -40,17 +50,17 @@ BlogMe | Blog|Home
             </a>
           </div>
           <div class="col-auto d-none d-lg-block">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Post Image" class="thumbnail-img">
+            {% else %}
             <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            {% endif %}
           </div>
         </div>
       </div>
       {% endfor %}
 
-
-
     </div>
-  
-
   
   </main>
 </div>

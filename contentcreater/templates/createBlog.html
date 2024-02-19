@@ -72,8 +72,21 @@ active
     }
 
     #editor-container {
-        width: 80%; /* Adjust the width of the editor */
-        height: 400px; /* Adjust the height of the editor */
+        width: 100%; /* Adjust the width of the editor */
+        height: 100%; /* Adjust the height of the editor */
+    }
+    #extra-info{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 1rem 0;
+    }
+    .extra-info-field{
+        border-radius: 5px;
+    }
+    .postbtn{
+        margin:0.5rem 0;
+        padding: 0.5rem 2rem; 
     }
     
     
@@ -118,14 +131,91 @@ active
 
 
 <div class="container">
-    <form method="post" action="/create/">
+    <form method="post" action="/create/createBlog/" enctype="multipart/form-data">
         {% csrf_token %}
+        <div id="extra-info">
+            <div>
+                <label for="title">Enter Title</label>
+                <input class="extra-info-field" type="text" name="title" placeholder="Title" id="title">
+            </div>
+            
+            <div>
+                <label for="author-name">Author Name</label>
+                <input class="extra-info-field" type="text" name="author" placeholder="Author" id="author-name">
+            </div>
+            
+            <!-- Add input field for uploading an image -->
+            <div>
+                <label for="image">Upload Image</label>
+                <input type="file" name="image" accept="image/*">
+            </div>
+        </div>
         <textarea id="editor-container" name="blog_content"></textarea>
-        <button type="submit" class="btn btn-secondary">Post</button>
+        <button type="submit" class="btn btn-secondary postbtn">Post</button>
     </form>
 </div>
 
-
 {% endblock %}
 {% block js %}
+<script src="https://cdn.tiny.cloud/1/7r1vx9oqtezus8k7clpgoo0u56jhtruskr39z2siv5c9c5v9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    function saveContentToLocalStorage() {
+        var content = tinymce.get("editor-container").getContent();
+        localStorage.setItem("blog_content", content);
+    }
+
+    function loadContentFromLocalStorage() {
+        var content = localStorage.getItem("blog_content");
+        if (content) {
+            tinymce.get("editor-container").setContent(content);
+        }
+    }
+
+    tinymce.init({
+        selector: '#editor-container',
+        width: 1000,
+        height: 500,
+        plugins: [
+            'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+            'media', 'table', 'emoticons', 'template', 'help'
+        ],
+        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+            'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+            'forecolor backcolor emoticons | help | decreasefontsize increasefontsize',
+        menu: {
+            favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+        },
+        menubar: 'favs file edit view insert format tools table help',
+        height: '500px',
+        width: '1000px',
+        toolbar_sticky: true,
+        icons: 'thin',
+        autosave_restore_when_empty: true,
+        browser_spellcheck: true,
+        contextmenu: false,
+        setup: function (editor) {
+            editor.ui.registry.addButton('decreasefontsize', {
+                icon: 'format_font_down',
+                tooltip: 'Decrease Font Size',
+                onAction: function () {
+                    editor.execCommand('fontSize', false, (parseInt(editor.queryCommandValue('fontSize'), 10) - 1) + 'px');
+                }
+            });
+            editor.ui.registry.addButton('increasefontsize', {
+                icon: 'format_font_up',
+                tooltip: 'Increase Font Size',
+                onAction: function () {
+                    editor.execCommand('fontSize', false, (parseInt(editor.queryCommandValue('fontSize'), 10) + 1) + 'px');
+                }
+            });
+        }
+    });
+
+    loadContentFromLocalStorage();
+
+    window.addEventListener('beforeunload', function () {
+        saveContentToLocalStorage();
+    });
+</script>
 {% endblock %}

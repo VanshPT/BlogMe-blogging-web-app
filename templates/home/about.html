@@ -1,10 +1,121 @@
 {% extends 'home/base.html' %}
+
 {% block title %}
 BlogMe | About
 {% endblock %}
+
 {% block aboutactive %}active{% endblock %}
-{% block css %}{% endblock %}
 
-{% block body %}{% endblock %}
+{% block css %}
+  <!-- Include CSS for additional styling -->
+  <style>
+    /* Add your CSS styles here */
+    .about-section {
+      padding: 50px;
+      text-align: center;
+    }
 
-{% block js %}{% endblock %}
+    .about-heading {
+      font-size: 36px;
+      margin-bottom: 30px;
+      color: #333;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .about-description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #555;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .creator-info {
+      font-size: 14px;
+      margin-top: 50px;
+      color: #777;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .background {
+      background-color: #f9f9f9;
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: opacity 1s ease;
+      margin: 50px auto;
+      max-width: 800px;
+    }
+
+    .background.show {
+      opacity: 1;
+    }
+
+    hr {
+      border-top: 1px solid #ccc;
+      margin: 40px auto;
+      width: 50%;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="background">
+        <div class="about-section">
+          <h1 class="about-heading">About BlogMe</h1>
+          <p class="about-description">Welcome to <span style="color: #007bff;">BlogMe</span>, a comprehensive platform dedicated to providing in-depth articles, tutorials, and insights into various <span style="color: #28a745;">technologies</span>. Our mission is to empower <span style="color: #dc3545;">tech enthusiasts</span>, students, and learners alike with valuable information to make informed decisions and stay updated with the latest trends in the <span style="color: #6610f2;">tech industry</span>.</p>
+          <p class="about-description">At BlogMe, we strive to deliver high-quality content that goes beyond surface-level discussions. Whether you're interested in <span style="color: #007bff;">web development</span>, <span style="color: #28a745;">artificial intelligence</span>, <span style="color: #dc3545;">cybersecurity</span>, or any other <span style="color: #6610f2;">tech-related topic</span>, you'll find insightful articles that dive deep into concepts, explore real-world applications, and offer practical advice.</p>
+          <hr>
+          <div class="creator-info">
+            <p>This website is created by <span style="color: #6610f2;">Vansh Thakkar</span>, a passionate <span style="color: #007bff;">Django developer</span> and <span style="color: #28a745;">AI enthusiast</span>. Our goal is to foster a vibrant community of <span style="color: #dc3545;">tech enthusiasts</span> who are eager to learn, share knowledge, and grow together.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+  <!-- JavaScript for animations or interactive elements -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Smooth background transition
+      setTimeout(() => {
+        document.querySelector('.background').classList.add('show');
+      }, 500);
+
+      // Smooth animation for the About heading
+      setTimeout(() => {
+        const aboutHeading = document.querySelector('.about-heading');
+        aboutHeading.style.opacity = '1';
+        aboutHeading.style.transform = 'translateY(0)';
+      }, 1000);
+
+      // Smooth animation for the About description
+      const aboutDescription = document.querySelectorAll('.about-description');
+      aboutDescription.forEach((description, index) => {
+        setTimeout(() => {
+          description.style.opacity = '1';
+          description.style.transform = 'translateY(0)';
+        }, 1000 + index * 200);
+      });
+
+      // Smooth animation for the Creator info
+      setTimeout(() => {
+        const creatorInfo = document.querySelector('.creator-info');
+        creatorInfo.style.opacity = '1';
+        creatorInfo.style.transform = 'translateY(0)';
+      }, 1800);
+    });
+  </script>
+{% endblock %}

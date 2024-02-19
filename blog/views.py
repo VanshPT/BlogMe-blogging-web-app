@@ -1,16 +1,16 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from blog.models import Post,BlogComment
+from blog.models import Post, BlogComment
 from django.contrib import messages
 from blog.templatetags import extras
 from itertools import chain
 
 # Create your views here.
 def blogHome(request):
-    allPosts=Post.objects.all()
+    allPosts = Post.objects.all()
     latest_post = allPosts.order_by('-timestamp').first()
-    context={'allPosts':allPosts, 'latest_post':latest_post}
-    return render(request, 'blog/blogHome.html' , context)
+    context = {'allPosts': allPosts, 'latest_post': latest_post}
+    return render(request, 'blog/blogHome.html', context)
 
 def blogPost(request, slug):
     post = Post.objects.filter(slug=slug).first()
@@ -24,9 +24,15 @@ def blogPost(request, slug):
             replyDict[reply.parent.cid] = [reply]
         else:
             replyDict[reply.parent.cid].append(reply)
-    context = {'post': post, 'comments': comments, 'user': request.user, 'replyDict': replyDict, 'totalcomments':totalcomments}
+    
+    context = {
+        'post': post,
+        'comments': comments,
+        'user': request.user,
+        'replyDict': replyDict,
+        'totalcomments': totalcomments
+    }
     return render(request, 'blog/blogPost.html', context)
-
 
 def postComment(request):
     if request.method == 'POST':

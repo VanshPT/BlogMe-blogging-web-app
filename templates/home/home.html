@@ -4,12 +4,18 @@ BlogMe | Home
 {% endblock %}
 {% block homeactive %}active{% endblock %}
 {% block css %}{% endblock %}
+<style>
 .custom-carousel-height{
   max-height:500px!important;
 }
 .custom-spacing{
   margin:2rem;
 }
+h1{
+  font-size: 0.3rem!important;
+}
+</style>
+
 {% block body %}
 <div class="container my-5">
     <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
@@ -81,17 +87,19 @@ BlogMe | Home
       <strong class="d-inline-block mb-2 text-primary-emphasis">{{ post.author }}</strong>
       <h3 class="mb-0">{{ post.title }}</h3>
       <div class="mb-1 text-body-secondary">{{ post.timestamp }}</div>
-      <p class="card-text mb-auto">{{ post.content | truncatechars:150 }}</p>
+      <p class="card-text mb-auto trunc">{{ post.content|safe | truncatechars:150 }}</p>
       <a href="/blog/{{ post.slug }}/" class="icon-link gap-1 icon-link-hover stretched-link">
         Continue reading
         <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
       </a>
     </div>
     <div class="col-auto d-none d-lg-block">
-      <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+      <!-- Replace the SVG placeholder with the image -->
+      <img src="{{ post.image.url }}" class="bd-placeholder-img" width="200" height="250" alt="{{ post.title }}">
     </div>
   </div>
 </div>
+
 
 {% endfor %}
   
@@ -99,4 +107,28 @@ BlogMe | Home
 </div>
 {% endblock %}
 
-{% block js %}{% endblock %}
+{% block js %}
+<script>
+  // Wait for the DOM content to be fully loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Grab all elements with the class 'trunc'
+    const paragraphs = document.querySelectorAll('.trunc');
+
+    // Iterate through each element with the class 'trunc'
+    paragraphs.forEach(paragraph => {
+      // Check if the paragraph contains an <h1> element
+      const heading = paragraph.querySelector('h1');
+      if (heading) {
+        // Create a <span> element with <em> element inside
+        const span = document.createElement('span');
+        const em = document.createElement('em');
+        span.appendChild(em);
+
+        // Replace the <h1> element with the created <span><em></em></span>
+        paragraph.replaceChild(span, heading);
+      }
+    });
+  });
+</script>
+
+{% endblock %}
