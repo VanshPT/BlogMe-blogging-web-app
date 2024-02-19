@@ -43,7 +43,7 @@ BlogMe | Blog|Home
             <strong class="d-inline-block mb-2 text-primary-emphasis">{{ post.author }}</strong>
             <h3 class="mb-0">{{ post.title }}</h3>
             <div class="mb-1 text-body-secondary">{{ post.timestamp }}</div>
-            <p class="card-text mb-auto">{{ post.content | truncatechars:150 }}</p>
+            <p class="card-text mb-auto">{{ post.content|safe | truncatechars:150 }}</p>
             <a href="/blog/{{ post.slug }}/" class="icon-link gap-1 icon-link-hover stretched-link">
               Continue reading
               <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
