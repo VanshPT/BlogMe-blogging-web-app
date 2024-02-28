@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-_%7@mzvpzx)k-*q2k8okoz68=dy5hb^n!)5fb*l@y4)vsqm&k=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ip-172-31-16-181.eu-north-1.compute.internal','13.51.161.112','127.0.0.1']
 
 
 # Application definition
@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'blogme.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'djangodb',
+        'USER': 'admin',
+        'PASSWORD': 'blogme2003',
+        'HOST': 'database-1.cxmi42e0y9zt.eu-north-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
@@ -120,15 +124,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Define additional directories where static files will be searched for
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
 STATIC_URL = '/static/'
-
+STATIC_ROOT=os.path.join(BASE_DIR, "static/")
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
