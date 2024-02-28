@@ -20,7 +20,7 @@ typerr(); // Call the function to start the typing effect
 function typerr1() {
     var txt = "BlogMe";
     var emp = "";
-    var strin = document.getElementsById('logguser')[0]; // Assuming there's only one element with this class
+    var strin = document.getElementById('logguser')[0]; // Assuming there's only one element with this class
     var i = 0;
 
     var typingInterval = setInterval(function() {
