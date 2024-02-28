@@ -81,39 +81,48 @@ def resize_image(image):
 
 def signupCreater(request):
     if request.method == "POST":
-        username=request.POST.get('username')
-        firstname=request.POST.get('firstName')
-        lastname=request.POST.get('lastName')
-        email=request.POST.get('email')
-        password=request.POST.get('password')
-        confpassword=request.POST.get('confirmPassword')
-        if len(password)<8:
-            messages.error(request,'Password Length Cannot be Less than 8!')
-            return redirect('/create')
-        elif password!=confpassword:
-            messages.error(request,'Password and Confirm Password Fields do not Match!')
-            return redirect('/create')
-        elif len(password)<8 and password!=confpassword:
-            messages.error(request,'Password Length Cannot be Less than 8!')
-            messages.error(request,'Password and Confirm Password Fields do not Match!')
-            return redirect('/create')
-        elif not username.isalnum():
-            messages.error(request, "Username should be in Alphabets or Numbers only!")
-            return redirect('/create')
+        # Check if the user is authenticated and belongs to the "Reader" group
+        if request.user.is_authenticated and request.user.groups.filter(name='Reader').exists():
+            # Upgrade the user to a "Content-Creators" group
+            content_creators_group, created = Group.objects.get_or_create(name='Content-Creators')
+            request.user.groups.add(content_creators_group)
+            messages.success(request, 'Your account has been upgraded to a Content-Creator account')
+            return redirect('/create')  # Redirect to the content creator page
         else:
-            # Create the user
-            myuser = User.objects.create_user(username, email, password)
-            myuser.first_name = firstname
-            myuser.last_name = lastname
-            myuser.save()
+            # Perform the regular signup process for a content creator
+            username=request.POST.get('username')
+            firstname=request.POST.get('firstName')
+            lastname=request.POST.get('lastName')
+            email=request.POST.get('email')
+            password=request.POST.get('password')
+            confpassword=request.POST.get('confirmPassword')
+            if len(password)<8:
+                messages.error(request,'Password Length Cannot be Less than 8!')
+                return redirect('/create')
+            elif password!=confpassword:
+                messages.error(request,'Password and Confirm Password Fields do not Match!')
+                return redirect('/create')
+            elif len(password)<8 and password!=confpassword:
+                messages.error(request,'Password Length Cannot be Less than 8!')
+                messages.error(request,'Password and Confirm Password Fields do not Match!')
+                return redirect('/create')
+            elif not username.isalnum():
+                messages.error(request, "Username should be in Alphabets or Numbers only!")
+                return redirect('/create')
+            else:
+                # Create the user
+                myuser = User.objects.create_user(username, email, password)
+                myuser.first_name = firstname
+                myuser.last_name = lastname
+                myuser.save()
 
-            # Assign the user to the 'Content-Creators' group
-            reader_group, created = Group.objects.get_or_create(name='Content-Creators')
-            myuser.groups.add(reader_group)
+                # Assign the user to the 'Content-Creators' group
+                reader_group, created = Group.objects.get_or_create(name='Content-Creators')
+                myuser.groups.add(reader_group)
 
-            # Display success message and redirect
-            messages.success(request,'Congrats!! Your Blogme Creater Account has been successfully created')
-            return redirect('/create')
+                # Display success message and redirect
+                messages.success(request,'Congrats!! Your Blogme Creater Account has been successfully created')
+                return redirect('/create')
     else:
         return HttpResponse("Error! Illegal Request")
 
